@@ -1,9 +1,6 @@
 # Kubernetes Installation
 
-  [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) and [Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker). 
-These are the official sites, to be followed for installations.
-  
-  Below are the steps required to get this working on a base linux system.
+  [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) and [Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker), are the official sites, to be followed for installations.
   
   - Provision a Virtual machine
   - Install kubernetes 
