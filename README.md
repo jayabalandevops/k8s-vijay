@@ -1,4 +1,3 @@
-# Sri Ramajeyam..! [sri ram](http://google.com)
 # Kubernetes Installation
 
   [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) and [Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker). 
