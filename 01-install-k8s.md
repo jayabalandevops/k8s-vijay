@@ -1,30 +1,36 @@
 # Sri Ramajeyam..! [sri ram](http://google.com)
-# Simple Web Application
+# Kubernetes Installation
 
-This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
-This is used in the demonstration of development of Ansible Playbooks.
+  [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) and [Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker). 
+These are the official sites, to be followed for installations.
   
   Below are the steps required to get this working on a base linux system.
   
-  - Install all required dependencies
-  - Install and Configure Database
-  - Start Database Service
-  - Install and Configure Web Server
-  - Start Web Server
+  - Provision a Virtual machine
+  - Install kubernetes 
+  - Install docker
+  - Install and Configure ```kubeadm``` in the kubernetes ```master```
+  - Join other ```nodes``` with the ```master```
+  - Verify the cluster
    
-## 1. Install all required dependencies
+## 1. Provision the Virtual machines
   
-  Python and its dependencies
-
-    apt-get install -y python python-setuptools python-dev build-essential python-pip python-mysqldb
-
+  Create 4 machines of same configuration.
+  - Ram 4GB, #of CPUs 2, Ubuntu 18.04 LTS, 10GB Hard Disk.
+  - master, node1, node2, node3
+  - Note: all the Virtual machines should be in the same network
+  - Its applicable to any cloud providers
+  - [GCE](https://console.cloud.google.com) and [AWS](https://console.aws.amazon.com). 
    
-## 2. Install and Configure Database
+## 2. Install kubernetes
     
- Install MySQL database
-    
-    apt-get install -y mysql-server mysql-client
+ Install kubectl,kubeadm and kubelet
+  - Follow this link for 
+  [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl).
+  - Note: tested using ubuntu 18.04 LTS
+  ```shell script
 
+```
 ## 3. Start Database Service
   - Start the database service
     
