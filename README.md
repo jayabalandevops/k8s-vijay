@@ -1,79 +1,107 @@
 # Sri Ramajeyam..! [sri ram](http://google.com)
-# Simple Web Application
+# Kubernetes Installation
 
-This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
-This is used in the demonstration of development of Ansible Playbooks.
+  [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) and [Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker). 
+These are the official sites, to be followed for installations.
   
   Below are the steps required to get this working on a base linux system.
   
-  - Install all required dependencies
-  - Install and Configure Database
-  - Start Database Service
-  - Install and Configure Web Server
-  - Start Web Server
+  - Provision a Virtual machine
+  - Install kubernetes 
+  - Install docker
+  - Install and Configure ```kubeadm``` in the kubernetes ```master```
+  - Join other ```nodes``` with the ```master```
+  - Verify the cluster
    
-## 1. Install all required dependencies
+## 1. Provision the Virtual machines
   
-  Python and its dependencies
-
-    apt-get install -y python python-setuptools python-dev build-essential python-pip python-mysqldb
-
+  Create 4 machines of same configuration.
+  - Ram 4GB, #of CPUs 2, Ubuntu 18.04 LTS, 10GB Hard Disk.
+  - ```master node1 node2 node3```
+  - Note: all the Virtual machines should be in the same network
+  - Its applicable to any cloud providers
+  - [GCE](https://console.cloud.google.com) and [AWS](https://console.aws.amazon.com). 
    
-## 2. Install and Configure Database
+## 2. Install kubernetes
     
- Install MySQL database
-    
-    apt-get install -y mysql-server mysql-client
+ Install kubectl,kubeadm and kubelet in all the ```nodes```.
+  - Follow this link for 
+  [Kubectl Installation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl).
+  - Note: tested using ubuntu 18.04 LTS
+  ```shell script
+apt-get update && apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl 
+apt-mark hold kubelet kubeadm kubectl 
+```
+## 3. Install Docker
+  Install Community Edition for development purpose in all the ```nodes```.
+  - Follow this link for [Docker CE Installation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker).
+   ```shell script
 
-## 3. Start Database Service
-  - Start the database service
-    
-        service mysql start
+apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common -y
+apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common -y
 
-  - Create database and database users
-        
-        # mysql -u <username> -p
-        
-        mysql> CREATE DATABASE employee_db;
-        mysql> GRANT ALL ON *.* to db_user@'%' IDENTIFIED BY 'Passw0rd';
-        mysql> USE employee_db;
-        mysql> CREATE TABLE employees (name VARCHAR(20));
-        
-  - Insert some test data
-        
-        mysql> INSERT INTO employees VALUES ('JOHN');
-    
-## 4. Install and Configure Web Server
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-Install Python Flask dependency
+add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) \
+  stable"
 
-    pip install flask
-    pip install flask-mysql
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu -y
 
-- Copy app.py or download it from source repository
-- Configure database credentials and parameters 
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
 
-## 5. Start Web Server
+mkdir -p /etc/systemd/system/docker.service.d
+systemctl daemon-reload
+systemctl restart docker
+``` 
+## 4. Enable and Configure ```kubeadm``` in Kubernetes Master 
 
-Start web server
+Enable ```kubeadm``` 
+```shell
+kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=192.168.0.0/16
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+```
+- Test the status of nodes
+```shell script
+kubectl get nodes
+kubectl get pods --all-namespaces
+kubectl get nodes --show-lables
+kubectl get namespaces
+```
+## 5. Join the ```nodes``` with the ```master```
 
-    FLASK_APP=app.py flask run --host=0.0.0.0
+Execute the following command and get the join token from the ```master``` and copy it in clipboard.
+
+   ```
+   kubeadm token create --print-join-command
+```
     
 ## 6. Test
 
-Open a browser and go to URL
-
-    http://<IP>:5000                            => Welcome
-    http://<IP>:5000/how%20are%20you            => I am good, how about you?
-    http://<IP>:5000/read%20from%20database     => JOHN
-
-```shell
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
+Go to ```master``` and execute.
+```
+kubectl version
+kubectl cluster-info
+kubectl get pods -n kube-system
+kubectl get events
 ```
