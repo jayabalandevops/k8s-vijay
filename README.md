@@ -20,10 +20,8 @@
 
 <details><summary>Show Output</summary>
 <p>
-++++
 <br>
-<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.png" width="225" alt="Server and nodes of the K8s cluster." />
-++++
+<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.PNG" width="225" alt="Server and nodes of the K8s cluster." />
 </p>
 </details>
 ## 2. Install kubernetes
