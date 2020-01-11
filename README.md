@@ -130,7 +130,15 @@ Execute the following command and get the join token from the ```master``` and c
    ```
    kubeadm token create --print-join-command
 ```
-    
+
+<details><summary>Show Output images</summary>
+<p>
+<br>
+<img align="left" role="left" src="05-Join-other-nodes-of-the-cluster-with-master.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<br>
+</p>
+</details>
+
 ## 6. Test
 
 Go to ```master``` and execute.
