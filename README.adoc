@@ -2,7 +2,7 @@
 
 ++++
 <br>
-<img align="left" role="left" src="blob/master/00-cka-badge.PNG" width="225" alt="Workout for CKA" />
+<img align="left" role="left" src="blob/master/00-cka-badge.PNG" width="175" alt="Workout for CKA" />
 ++++
 
 The concepts in CKA.
