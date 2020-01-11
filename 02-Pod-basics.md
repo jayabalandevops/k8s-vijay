@@ -143,29 +143,7 @@ namespace "cka-facebook" deleted
 
 <details><summary>History Output</summary>
 <p>
-```
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
-</head>
-<body>
-<h1>Welcome to nginx!</h1>
-<p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
 
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
-
-<p><em>Thank you for using nginx.</em></p>
-</body>
-</html>
--                    100% |***************************************************************************************************************************|   612  0:00:00 ETA
-written to stdout
 / # exit
 pod "busybox" deleted
 devuser@node-1:~$ kubectl logs mypod -n cka-facebook
@@ -193,6 +171,5 @@ devuser@node-1:~$ history
    38  kubectl delete pod mypod --namespace=cka-facebook
    39  kubectl delete namespace cka-facebook
    40  history
-```   
-   </p>
+</p>
 </details>
