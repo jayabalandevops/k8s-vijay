@@ -17,7 +17,15 @@
   - Note: all the Virtual machines should be in the same network
   - Its applicable to any cloud providers
   - [GCE](https://console.cloud.google.com) and [AWS](https://console.aws.amazon.com). 
-   
+
+<details><summary>Show Output</summary>
+<p>
+++++
+<br>
+<img align="left" role="left" src="01-gce-with-servers.jpg" width="225" alt="Learning Path Cover" />
+++++
+</p>
+</details>
 ## 2. Install kubernetes
     
  Install kubectl,kubeadm and kubelet in all the ```nodes```.
