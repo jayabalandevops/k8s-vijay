@@ -13,7 +13,7 @@ Architect Vijay shared his expertise to explore the concepts in the https://www.
 Summary of the Concepts in CKA.
 
 01. Kubernetes Installation
-	* https://github.com/jayabalandevops/k8s-vijay/blob/master/01-Installation.md#Install k8s and docker[Install kubernetes and Docker]
+	* https://github.com/jayabalandevops/k8s-vijay/blob/master/01-Installation.md#Install-k8s-and-docker[Install kubernetes and Docker]
 02. Core Concepts
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/02-core-concepts.md#creating-a-pod-and-inspecting-it[Creating a Pod and Inspecting it]
 03. Configuration
