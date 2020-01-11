@@ -156,3 +156,41 @@ kubectl get events
 <br>
 </p>
 </details>
+
+
+
+<details><summary>Show history of commands</summary>
+<p>
+<br>
+
+    1  sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+    2  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    3  cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+    4  sudo apt-get update
+    5  sudo apt-get install -y kubelet kubeadm kubectl
+    6  sudo apt-mark hold kubelet kubeadm kubectl
+    7  apt-get update && apt-get install   apt-transport-https ca-certificates curl software-properties-common
+    8  sudo apt-get update && apt-get install   apt-transport-https ca-certificates curl software-properties-common
+    9  sudo su
+   10  kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=192.168.0.0/16
+   11  sudo su
+   12  mkdir -p $HOME/.kube
+   13  ls -al $HOME/.kube
+   14  sudo su
+   15  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   16  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   17  export kubever=$(kubectl version | base64 | tr -d '\n')
+   18  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+   19  kubectl get nodes
+   20  kubeadm token create --print-join-command
+   21  kubectl get nodes
+   22  kubectl get pods
+   23  kubectl get namespaces
+   24  kubectl get pods -n kube-system
+   
+   <br>
+</p>
+</details>
