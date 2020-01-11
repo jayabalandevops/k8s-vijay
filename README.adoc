@@ -3,8 +3,11 @@
 ++++
 <br>
 <img align="left" role="left" src="blob/master/00-cka-badge.PNG" width="225" alt="Workout for CKA" />
-++++
 
+
+
+
+++++
 =
 Hands-on for the concepts in CKA.
 
