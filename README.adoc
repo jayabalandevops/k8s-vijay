@@ -3,13 +3,9 @@
 ++++
 <br>
 <img align="left" role="left" src="blob/master/00-cka-badge.PNG" width="225" alt="Workout for CKA" />
-
-
-
-
 ++++
-=
-Hands-on for the concepts in CKA.
+
+= Hands-on for the concepts in CKA.
 
 Architect Vijay shared his expertise to explore the concepts in the https://www.cncf.io/certification/cka/[CKA exam] to prepare for the CKA exam.
 
