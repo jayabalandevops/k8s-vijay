@@ -1,4 +1,4 @@
-# Core Concepts (13%)
+# Pod Basic Concepts
 
 ## Creating a Pod and Inspecting it
 
