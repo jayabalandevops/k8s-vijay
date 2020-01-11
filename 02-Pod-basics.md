@@ -143,7 +143,7 @@ namespace "cka-facebook" deleted
 
 <details><summary>History Output</summary>
 <p>
-
+```
     body {
         width: 35em;
         margin: 0 auto;
@@ -168,14 +168,14 @@ Commercial support is available at
 written to stdout
 / # exit
 pod "busybox" deleted
-balaniaf@node-1:~$ kubectl logs mypod -n cka-facebook
+devuser@node-1:~$ kubectl logs mypod -n cka-facebook
 10.44.0.1 - - [11/Jan/2020:22:28:53 +0000] "GET / HTTP/1.1" 200 612 "-" "Wget" "-"
 10.44.0.1 - - [11/Jan/2020:22:29:00 +0000] "GET / HTTP/1.1" 200 612 "-" "Wget" "-"
-balaniaf@node-1:~$ kubectl delete pod mypod --namespace=cka-facebook
+devuser@node-1:~$ kubectl delete pod mypod --namespace=cka-facebook
 pod "mypod" deleted
-kubectl delebalaniaf@node-1:~$ kubectl delete namespace cka-facebook
+kubectl deledevuser@node-1:~$ kubectl delete namespace cka-facebook
 namespace "cka-facebook" deleted
-balaniaf@node-1:~$ history
+devuser@node-1:~$ history
 
    25  create namespace cka-facebook
    26  kubectl create namespace cka-facebook
@@ -193,6 +193,6 @@ balaniaf@node-1:~$ history
    38  kubectl delete pod mypod --namespace=cka-facebook
    39  kubectl delete namespace cka-facebook
    40  history
-   
+```   
    </p>
 </details>
