@@ -1,8 +1,8 @@
-= Certified Kubernetes Administrator (CKA) Prep Course
+= Certified Kubernetes Administrator (CKA) workouts.
 
 ++++
 <br>
-<img align="left" role="left" src="" width="225" alt="Prepare for CKA" />
+<img align="left" role="left" src="" width="225" alt="Workout for CKA" />
 ++++
 Hands-on for the concepts in CKA.
 
