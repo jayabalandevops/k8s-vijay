@@ -3,7 +3,7 @@
 ## Creating a Pod and Inspecting it
 
 1. Create the namespace `cka-facebook`.
-2. In the namespace `cka-facebook`` create a new Pod named `mypod` with the image `nginx:2.3.5`. Expose the port 80.
+2. In the namespace `cka-facebook` create a new Pod named `mypod` with the image `nginx:2.3.5`. Expose the port 80.
 3. Identify the issue with creating the container. Write down the root cause of issue in a file named `pod-error.txt`.
 4. Change the image of the Pod to `nginx:1.15.12`.
 5. List the Pod and ensure that the container is running.
