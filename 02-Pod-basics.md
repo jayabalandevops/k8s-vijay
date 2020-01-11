@@ -141,25 +141,28 @@ namespace "cka-facebook" deleted
 </details>
 
 
-<details><summary>History Output</summary>
+<details><summary>History of commands.</summary>
 <p>
+
+History of commands.
+
 ```bash
-   1  create namespace cka-facebook
-   2  kubectl create namespace cka-facebook
-   3  kubectl get ns
-   4  kubectl run mypod --image=nginx:2.3.4 --port=80 --restart=Never --namespace=cka-facebook
-   5  kubectl get pods -n cka-facebook
-   6  kubectl describe pod -n cka-facebook
-   7  kubectl edit pod mypod --namespace=cka-facebook
-   8  kubectl get pods -n cka-facebook
-   9  kubectl exec mypod -it -n cka-facebook -- /bin/sh
-   10  kubectl get pods -o wide
-   11  kubectl get pods -o wide -n cka-facebook
-   12  kubectl run busybox --image=busybox --rm -it --restart=Never -n cka-facebook -- /bin/sh
-   13  kubectl logs mypod -n cka-facebook
-   14  kubectl delete pod mypod --namespace=cka-facebook
-   15  kubectl delete namespace cka-facebook
-   16  history
+create namespace cka-facebook
+kubectl create namespace cka-facebook
+kubectl get ns
+kubectl run mypod --image=nginx:2.3.4 --port=80 --restart=Never --namespace=cka-facebook
+kubectl get pods -n cka-facebook
+kubectl describe pod -n cka-facebook
+kubectl edit pod mypod --namespace=cka-facebook
+kubectl get pods -n cka-facebook
+kubectl exec mypod -it -n cka-facebook -- /bin/sh
+kubectl get pods -o wide
+kubectl get pods -o wide -n cka-facebook
+kubectl run busybox --image=busybox --rm -it --restart=Never -n cka-facebook -- /bin/sh
+kubectl logs mypod -n cka-facebook
+kubectl delete pod mypod --namespace=cka-facebook
+kubectl delete namespace cka-facebook
 ```
+
 </p>
 </details>
