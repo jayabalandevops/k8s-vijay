@@ -93,7 +93,7 @@ systemctl restart docker
 </details>
 
 
-## 4. Enable and Configure ```kubeadm``` in Kubernetes Master 
+## 4. Enable and Configure ```kubeadm``` in Kubernetes Master Server.
 
 Enable ```kubeadm``` 
 ```shell
@@ -114,6 +114,15 @@ kubectl get pods --all-namespaces
 kubectl get nodes --show-lables
 kubectl get namespaces
 ```
+
+<details><summary>Show Output images</summary>
+<p>
+<br>
+<img align="left" role="left" src="04-kubeadm-init-applying-weavenet-driver.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<br>
+</p>
+</details>
+
 ## 5. Join the ```nodes``` with the ```master```
 
 Execute the following command and get the join token from the ```master``` and copy it in clipboard.
