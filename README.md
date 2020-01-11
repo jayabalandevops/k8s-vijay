@@ -2,7 +2,7 @@
 
 ++++
 <br>
-<img align="left" role="left" src="https://learning.oreilly.com/api/v1/refworks/image/800x600/media/book/12/9781492061021/9781492061021-2019-07-12.jpg" width="225" alt="Learning Path Cover" />
+<img align="left" role="left" src="" width="225" alt="Learning Path Cover" />
 ++++
 Hands-on for the concepts in CKA.
 
