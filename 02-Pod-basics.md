@@ -2,8 +2,8 @@
 
 ## Creating a Pod and Inspecting it
 
-1. Create the namespace `ckad-prep`.
-2. In the namespace `ckad-prep` create a new Pod named `mypod` with the image `nginx:2.3.5`. Expose the port 80.
+1. Create the namespace `cka-facebook`.
+2. In the namespace `cka-facebook`` create a new Pod named `mypod` with the image `nginx:2.3.5`. Expose the port 80.
 3. Identify the issue with creating the container. Write down the root cause of issue in a file named `pod-error.txt`.
 4. Change the image of the Pod to `nginx:1.15.12`.
 5. List the Pod and ensure that the container is running.
@@ -13,26 +13,26 @@
 9. Render the logs of Pod `mypod`.
 10. Delete the Pod and the namespace.
 
-<details><summary>Show Solution</summary>
+<details><summary>Output</summary>
 <p>
 
 First, create the namespace.
 
 ```bash
-$ kubectl create namespace ckad-prep
+$ kubectl create namespace cka-facebook
 ```
 
 Next, create the Pod in the new namespace.
 
 ```bash
-$ kubectl run mypod --image=nginx:2.3.5 --restart=Never --port=80 --namespace=ckad-prep
+$ kubectl run mypod --image=nginx:2.3.5 --restart=Never --port=80 --namespace=cka-facebook
 pod/mypod created
 ```
 
 You will see that the image cannot be pulled as it doesn't exist with this tag.
 
 ```bash
-$ kubectl get pod -n ckad-prep
+$ kubectl get pod -n cka-facebook
 NAME    READY   STATUS             RESTARTS   AGE
 mypod   0/1     ImagePullBackOff   0          1m
 ```
@@ -40,7 +40,7 @@ mypod   0/1     ImagePullBackOff   0          1m
 The list of events can give you a deeper insight.
 
 ```bash
-$ kubectl describe pod -n ckad-prep
+$ kubectl describe pod -n cka-facebook
 ...
 Events:
   Type     Reason                 Age                 From                         Message
@@ -54,16 +54,16 @@ Events:
   Warning  Failed                 69s (x6 over 3m)    kubelet, docker-for-desktop  Error: ImagePullBackOff
 ```
 
-Go ahead and edit the existing Pod. Alternatively, you could also just use the `kubectl set image pod mypod mypod=nginx --namespace=ckad-prep` command.
+Go ahead and edit the existing Pod. Alternatively, you could also just use the `kubectl set image pod mypod mypod=nginx --namespace=cka-facebook` command.
 
 ```bash
-$ kubectl edit pod mypod --namespace=ckad-prep
+$ kubectl edit pod mypod --namespace=cka-facebook
 ```
 
 After setting an image that does exist, the Pod should render the status `Running`.
 
 ```bash
-$ kubectl get pod -n ckad-prep
+$ kubectl get pod -n cka-facebook
 NAME    READY   STATUS    RESTARTS   AGE
 mypod   1/1     Running   0          14m
 ```
@@ -71,7 +71,7 @@ mypod   1/1     Running   0          14m
 You can shell into the container and run the `ls` command.
 
 ```bash
-$ kubectl exec mypod -it --namespace=ckad-prep  -- /bin/sh
+$ kubectl exec mypod -it --namespace=cka-facebook  -- /bin/sh
 / # ls
 bin  boot  dev	etc  home  lib	lib64  media  mnt  opt	proc  root  run  sbin  srv  sys  tmp  usr  var
 / # exit
@@ -80,7 +80,7 @@ bin  boot  dev	etc  home  lib	lib64  media  mnt  opt	proc  root  run  sbin  srv 
 Retrieve the IP address of the Pod with the `-o wide` command line option.
 
 ```bash
-$ kubectl get pods -o wide -n ckad-prep
+$ kubectl get pods -o wide -n cka-facebook
 NAME    READY   STATUS    RESTARTS   AGE   IP               NODE
 mypod   1/1     Running   0          12m   192.168.60.149   docker-for-desktop
 ```
@@ -88,7 +88,7 @@ mypod   1/1     Running   0          12m   192.168.60.149   docker-for-desktop
 Remember to use the `--rm` to create a temporary Pod.
 
 ```bash
-$ kubectl run busybox --image=busybox --rm -it --restart=Never -n ckad-prep -- /bin/sh
+$ kubectl run busybox --image=busybox --rm -it --restart=Never -n cka-facebook -- /bin/sh
 If you don't see a command prompt, try pressing enter.
 / # wget -O- 192.168.60.149:80
 Connecting to 192.168.60.149:80 (192.168.60.149:80)
@@ -124,17 +124,17 @@ Commercial support is available at
 The logs of the Pod should show a single line indicating our request.
 
 ```bash
-$ kubectl logs mypod -n ckad-prep
+$ kubectl logs mypod -n cka-facebook
 192.168.60.162 - - [17/May/2019:13:35:59 +0000] "GET / HTTP/1.1" 200 612 "-" "Wget" "-"
 ```
 
 Delete the Pod and namespace after you are done.
 
 ```bash
-$ kubectl delete pod mypod --namespace=ckad-prep
+$ kubectl delete pod mypod --namespace=cka-facebook
 pod "mypod" deleted
-$ kubectl delete namespace ckad-prep
-namespace "ckad-prep" deleted
+$ kubectl delete namespace cka-facebook
+namespace "cka-facebook" deleted
 ```
 
 </p>
