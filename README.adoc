@@ -2,7 +2,7 @@
 
 ++++
 <br>
-<img align="left" role="left" src="" width="225" alt="Learning Path Cover" />
+<img align="left" role="left" src="" width="225" alt="Prepare for CKA" />
 ++++
 Hands-on for the concepts in CKA.
 
