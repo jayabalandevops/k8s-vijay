@@ -19,15 +19,13 @@
   - [GCE](https://console.cloud.google.com) and [AWS](https://console.aws.amazon.com). 
 
 
-<details><summary>Show Output</summary>
+<details><summary>Show Output image</summary>
 <p>
 <br>
-<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.PNG" width="600" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.PNG" width="800" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
-
-#
 
 ## 2. Install kubernetes
     
@@ -45,6 +43,14 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl 
 apt-mark hold kubelet kubeadm kubectl 
 ```
+<details><summary>Show Output images</summary>
+<p>
+<br>
+<img align="left" role="left" src="02-apt-mark-hold-kubeadm.PNG" width="800" alt="Server and nodes of the K8s cluster." />
+<br>
+</p>
+</details>
+
 ## 3. Install Docker
   Install Community Edition for development purpose in all the ```nodes```.
   - Follow this link for [Docker CE Installation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker).
