@@ -22,7 +22,7 @@
 <details><summary>Show Output image</summary>
 <p>
 <br>
-<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.PNG" width="800" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
@@ -46,13 +46,13 @@ apt-mark hold kubelet kubeadm kubectl
 <details><summary>Show Output images</summary>
 <p>
 <br>
-<img align="left" role="left" src="02-apt-mark-hold-kubeadm.PNG" width="800" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="02-apt-mark-hold-kubeadm.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
 
 ## 3. Install Docker
-  Install Community Edition for development purpose in all the ```nodes```.
+  Install Community Edition for development purpose in all the ```nodes``` as a SUDO user.
   - Follow this link for [Docker CE Installation](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker).
    ```shell script
 
@@ -83,6 +83,16 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ``` 
+
+<details><summary>Show Output images</summary>
+<p>
+<br>
+<img align="left" role="left" src="03-docker-installation.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<br>
+</p>
+</details>
+
+
 ## 4. Enable and Configure ```kubeadm``` in Kubernetes Master 
 
 Enable ```kubeadm``` 
