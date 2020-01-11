@@ -13,9 +13,9 @@ Architect Vijay shared his expertise to explore the concepts in the https://www.
 Summary of the Concepts in CKA.
 
 01. Kubernetes Installation
-	* https://github.com/jayabalandevops/k8s-vijay/blob/master/01-Installation.md#Install-k8s-and-docker[Install kubernetes and Docker]
-02. Core Concepts
-    * https://github.com/jayabalandevops/k8s-vijay/blob/master/02-core-concepts.md#creating-a-pod-and-inspecting-it[Creating a Pod and Inspecting it]
+	* https://github.com/jayabalandevops/k8s-vijay/blob/master/01-Installation.md#install-k8s-and-docker[Install kubernetes and Docker]
+02. Pod basic Concepts
+    * https://github.com/jayabalandevops/k8s-vijay/blob/master/02-core-concepts.md#pod-creation-and-inspection[Pod creation and Inspection]
 03. Configuration
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/03-configuration.md#configuring-a-pod-to-use-a-configmap[Configuring a Pod to Use a ConfigMap]
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/03-configuration.md#configuring-a-pod-to-use-a-secret[Configuring a Pod to Use a Secret]
@@ -36,7 +36,7 @@ Summary of the Concepts in CKA.
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/07-services-and-networking.md#restricting-access-to-and-from-a-pod[Restricting Access to and from a Pod]
 08. State Persistence
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/08-state-persistence.md#defining-and-mounting-a-persistentvolume[Defining and Mounting a PersistentVolume]
-09. Bonus
+09. Other Topics
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/09-bonus.md#shortcuts-and-time-savers[Shortcuts and Time Savers]
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/09-bonus.md#bash-commands[Bash Commands]
     * https://github.com/jayabalandevops/k8s-vijay/blob/master/09-bonus.md#kubernetes-object-information[Kubernetes Object Information]
