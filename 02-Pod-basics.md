@@ -144,32 +144,21 @@ namespace "cka-facebook" deleted
 <details><summary>History Output</summary>
 <p>
 
-/ # exit
-pod "busybox" deleted
-devuser@node-1:~$ kubectl logs mypod -n cka-facebook
-10.44.0.1 - - [11/Jan/2020:22:28:53 +0000] "GET / HTTP/1.1" 200 612 "-" "Wget" "-"
-10.44.0.1 - - [11/Jan/2020:22:29:00 +0000] "GET / HTTP/1.1" 200 612 "-" "Wget" "-"
-devuser@node-1:~$ kubectl delete pod mypod --namespace=cka-facebook
-pod "mypod" deleted
-kubectl deledevuser@node-1:~$ kubectl delete namespace cka-facebook
-namespace "cka-facebook" deleted
-devuser@node-1:~$ history
-
-   25  create namespace cka-facebook
-   26  kubectl create namespace cka-facebook
-   27  kubectl get ns
-   28  kubectl run mypod --image=nginx:2.3.4 --port=80 --restart=Never --namespace=cka-facebook
-   29  kubectl get pods -n cka-facebook
-   30  kubectl describe pod -n cka-facebook
-   31  kubectl edit pod mypod --namespace=cka-facebook
-   32  kubectl get pods -n cka-facebook
-   33  kubectl exec mypod -it -n cka-facebook -- /bin/sh
-   34  kubectl get pods -o wide
-   35  kubectl get pods -o wide -n cka-facebook
-   36  kubectl run busybox --image=busybox --rm -it --restart=Never -n cka-facebook -- /bin/sh
-   37  kubectl logs mypod -n cka-facebook
-   38  kubectl delete pod mypod --namespace=cka-facebook
-   39  kubectl delete namespace cka-facebook
-   40  history
+   1  create namespace cka-facebook
+   2  kubectl create namespace cka-facebook
+   3  kubectl get ns
+   4  kubectl run mypod --image=nginx:2.3.4 --port=80 --restart=Never --namespace=cka-facebook
+   5  kubectl get pods -n cka-facebook
+   6  kubectl describe pod -n cka-facebook
+   7  kubectl edit pod mypod --namespace=cka-facebook
+   8  kubectl get pods -n cka-facebook
+   9  kubectl exec mypod -it -n cka-facebook -- /bin/sh
+   10  kubectl get pods -o wide
+   11  kubectl get pods -o wide -n cka-facebook
+   12  kubectl run busybox --image=busybox --rm -it --restart=Never -n cka-facebook -- /bin/sh
+   13  kubectl logs mypod -n cka-facebook
+   14  kubectl delete pod mypod --namespace=cka-facebook
+   15  kubectl delete namespace cka-facebook
+   16  history
 </p>
 </details>
