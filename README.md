@@ -148,3 +148,11 @@ kubectl cluster-info
 kubectl get pods -n kube-system
 kubectl get events
 ```
+
+<details><summary>Show Output images</summary>
+<p>
+<br>
+<img align="left" role="left" src="06-test-master-to-get-nodes.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<br>
+</p>
+</details>
