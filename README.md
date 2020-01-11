@@ -22,7 +22,7 @@
 <details><summary>Show Output image</summary>
 <p>
 <br>
-<img align="left" role="left" src="01-gce-with-k8s-cluster-servers.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="blob/master/01-gce-with-k8s-cluster-servers.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
@@ -46,7 +46,7 @@ apt-mark hold kubelet kubeadm kubectl
 <details><summary>Show Output images</summary>
 <p>
 <br>
-<img align="left" role="left" src="02-apt-mark-hold-kubeadm.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="blob/master/02-apt-mark-hold-kubeadm.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
@@ -87,7 +87,7 @@ systemctl restart docker
 <details><summary>Show Output images</summary>
 <p>
 <br>
-<img align="left" role="left" src="03-docker-installation.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="blob/master/03-docker-installation.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
@@ -118,7 +118,7 @@ kubectl get namespaces
 <details><summary>Show Output images</summary>
 <p>
 <br>
-<img align="left" role="left" src="04-kubeadm-init-applying-weavenet-driver.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="blob/master/04-kubeadm-init-applying-weavenet-driver.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
@@ -134,7 +134,7 @@ Execute the following command and get the join token from the ```master``` and c
 <details><summary>Show Output images</summary>
 <p>
 <br>
-<img align="left" role="left" src="05-Join-other-nodes-of-the-cluster-with-master.PNG" width="850" alt="Server and nodes of the K8s cluster." />
+<img align="left" role="left" src="blob/master/05-Join-other-nodes-of-the-cluster-with-master.PNG" width="850" alt="Server and nodes of the K8s cluster." />
 <br>
 </p>
 </details>
