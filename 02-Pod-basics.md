@@ -143,7 +143,7 @@ namespace "cka-facebook" deleted
 
 <details><summary>History Output</summary>
 <p>
-
+```bash
    1  create namespace cka-facebook
    2  kubectl create namespace cka-facebook
    3  kubectl get ns
@@ -160,5 +160,6 @@ namespace "cka-facebook" deleted
    14  kubectl delete pod mypod --namespace=cka-facebook
    15  kubectl delete namespace cka-facebook
    16  history
+```
 </p>
 </details>
