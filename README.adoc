@@ -6,7 +6,7 @@
 ++++
 
 The concepts in CKA.
-
+Design, build, configure and expose cloud native applications for Kuberenetes.
 Architect Vijay shared his expertise to explore the concepts in the https://www.cncf.io/certification/cka/[CKA exam] to prepare for the CKA exam.
 
 
