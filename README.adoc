@@ -1,4 +1,4 @@
-= Certified Kubernetes Administrator (CKA) workouts.
+= Practice Kuberenetes
 
 ++++
 <br>
