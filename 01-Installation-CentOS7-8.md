@@ -184,6 +184,7 @@ EOF
 # Set SELinux in permissive mode (effectively disabling it)
 setenforce 0
 ```
+
 ```bash
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```
@@ -191,8 +192,17 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```bash
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 ```
+
 ```bash
 systemctl enable --now kubelet
+```
+
+```bash
+lsmod | grep br_netfilter
+```
+
+```bash
+modprobe br_netfilter
 ```
 
 ```bash
@@ -206,8 +216,36 @@ EOF
 sysctl --system
 ```
 
+```bash
+systemctl daemon-reload
+systemctl restart kubelet
+```
+
 Step 2: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker
 
+```bash
+yum install -y yum-utils device-mapper-persistent-data lvm2
+```
+
+```bash
+yum-config-manager --add-repo \
+  https://download.docker.com/linux/centos/docker-ce.repo
+```
+
+```bash
+yum update && yum install \
+  containerd.io-1.2.10 \
+  docker-ce-19.03.4 \
+  docker-ce-cli-19.03.4
+```
+
+```bash
+mkdir /etc/docker
+```
+
+```bash
+
+```
 
 
    
