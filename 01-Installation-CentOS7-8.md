@@ -163,33 +163,36 @@ kubectl get events
 <p>
 <br>
 
-    1  sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-    2  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-    3  cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
+Step 1: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-    4  sudo apt-get update
-    5  sudo apt-get install -y kubelet kubeadm kubectl
-    6  sudo apt-mark hold kubelet kubeadm kubectl
-    7  apt-get update && apt-get install   apt-transport-https ca-certificates curl software-properties-common
-    8  sudo apt-get update && apt-get install   apt-transport-https ca-certificates curl software-properties-common
-    9  sudo su
-   10  kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=192.168.0.0/16
-   11  sudo su
-   12  mkdir -p $HOME/.kube
-   13  ls -al $HOME/.kube
-   14  sudo su
-   15  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-   16  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-   17  export kubever=$(kubectl version | base64 | tr -d '\n')
-   18  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
-   19  kubectl get nodes
-   20  kubeadm token create --print-join-command
-   21  kubectl get nodes
-   22  kubectl get pods
-   23  kubectl get namespaces
-   24  kubectl get pods -n kube-system
+```bash
+sudo su
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+```
+
+```bash
+# Set SELinux in permissive mode (effectively disabling it)
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+```
+
+```bash
+yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+systemctl enable --now kubelet
+```
+
+Step 2: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker
+
+
+
    
    <br>
 </p>
