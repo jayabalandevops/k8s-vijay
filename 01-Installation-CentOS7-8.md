@@ -165,6 +165,8 @@ kubectl get events
 
 Step 1: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
+- Execute the following commands in all the nodes
+
 ```bash
 sudo su
 ```
@@ -223,6 +225,8 @@ systemctl restart kubelet
 
 Step 2: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker
 
+- Execute the following commands in all the nodes
+
 ```bash
 yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
@@ -271,8 +275,40 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
+Step 3: Run the following commands in Kubernetes master
 
-   
+```bash
+sudo su
+```
+
+```bash
+kubeadm init --apiserver-advertise-address $(hostname -i) --pod-network-cidr=192.168.0.0/16
+```
+
+```bash
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export kubever=$(kubectl version | base64 | tr -d '\n')
+```
+
+```bash
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+```
+
+Step 4: Now join the nodes with master
+
+- To do that get the token from master and execute them in nodes.
+
+```bash
+kubeadm token create --print-join-command 
+```
+
+- example kubeadm command to be executed on nodes to join with the master
+
+```bash
+kubeadm join 10.142.0.7:6443 --token s8llka.lwmm1lklzr01fu28     --discovery-token-ca-cert-hash sha256:9aba224e69ed713e19c38a3ea6689cc7b59147948326bee2d559d11a6c954888
+```
    <br>
 </p>
 </details>
