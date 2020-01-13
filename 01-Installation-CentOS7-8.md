@@ -167,6 +167,8 @@ Step 1: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/in
 
 ```bash
 sudo su
+```
+```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -181,12 +183,24 @@ EOF
 ```bash
 # Set SELinux in permissive mode (effectively disabling it)
 setenforce 0
+```
+```bash
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```
 
 ```bash
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+```
+```bash
 systemctl enable --now kubelet
+```
+
+```bash
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
 ```
 
 Step 2: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker
