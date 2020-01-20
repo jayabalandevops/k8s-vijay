@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web-app-namespace
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-web-app
+  namespace: web-app-namespace
+  labels:
+    app: web-db-app
+    tier: both-backend-frontend
+    env: production
+    version: v2.1
+spec:
+  containers:
+  - name: database
+    image: mysql
+    ports:
+    - containerPort: 3306
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: password
+    volumeMounts:
+    - name: mysql-data
+      mountPath: /var/lib/mysql
+  - name: webserver
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: webserver-data
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: mysql-data
+    hostPath:
+      path: /var/mysql/data
+      type: DirectoryOrCreate
+  - name: webserver-data
+    hostPath:
+      path: /var/www/html
+      type: DirectoryOrCreate
+

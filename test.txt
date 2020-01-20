@@ -1,0 +1,580 @@
+kubeadm init --apiserver-advertise-address=192.168.56.2 --pod-network-cidr=10.144.0.0/16
+
+kubeadm config images pull
+kubeadm init
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.0.107:6443 --token 9qpc1g.0cf2dyykpm7yuemu \
+    --discovery-token-ca-cert-hash sha256:84c8a3262cc525b6fbf4e69b2290400ec8ab47440865474f42e72a89a292ddc6
+[root@control ~]#
+
+firewall-cmd --add-port 80/tcp --permanent
+firewall-cmd --add-port 8080/tcp --permanent
+
+yum update -y && yum install -y containerd.io-1.2.10 docker-ce-19.03.4 docker-ce-cli-19.03.4
+
+
+192.168.54.2 control.example.com control
+192.168.54.3 worker1.example.com worker1
+192.168.54.4 worker2.example.com worker2
+
+cat >> /etc/hosts << EOF
+{
+  192.168.54.2 control.example.com control
+  192.168.54.3 worker1.example.com worker1
+  192.168.54.4 worker2.example.com worker2
+}
+EOF
+
+
+ yum install -y net-tools
+
+
+[root@worker2 ~]# vi /etc/sysconfig/network-scripts/ifcfg-enp0s8
+BOOTPROTO="none"
+IPADDR0=192.168.54.4
+NETMASK=255.255.255.0
+GATEWAY0=192.168.54.254
+DEVICE="enp0s8"
+ONBOOT="yes"
+HWADDR=08:00:27:64:1c:fa
+Type="Ethernet"
+
+
+=======================
+
+ 31  cat /etc/sysconfig/network-scripts/ifcfg-enp0s3
+   32  systemctl status systemd-hostnamed
+   33  systemctl restart systemd-hostnamed
+   34  systemctl status systemd-hostnamed
+   35  hostname
+   36  systemctl stop systemd-hostnamed
+   37  history
+
+========================
+apiVersion: v1
+
+kind: Pod
+
+metadata:
+
+  name: busybox2
+
+  namespace: default
+
+  labels:
+
+    app: busybox
+
+spec:
+
+  containers:
+
+  - name: busy
+
+    image: busybox
+
+    command:
+
+      - sleep
+
+      - "3600" 
+	  
+	  ===============
+
+
+[root@control ~]# history
+    1  ip a s
+    2  ping google.com
+    3  systemctl status sshd
+    4  visudo
+    5  poweroff
+    6  cat /etc/passwd
+    7  visudo
+    8  ip a s
+    9  ping google.com
+   10  ip a s
+   11  vi /etc/sysconfig/network-scripts/ifcfg-enp0s8
+   12  cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+   13  vi /etc/sysconfig/network-scripts/ifcfg-enp0s8
+   14  ifconfig
+   15  yum install -y net-tools
+   16  ifconfig
+   17  ifdown enp0s8
+   18  ifup enp0s8
+   19  ip a s
+   20  hostnamectl set-hostname control.example.com
+   21  cat /etc/hosts
+   22  cat >> /etc/hosts << EOF
+   23  {
+   24    192.168.56.2 control.example.com control
+   25    192.168.56.3 worker1.example.com worker1
+   26    192.168.56.4 worker2.example.com worker2
+   27  }
+   28  EOF
+   29  cat /etc/hostname
+   30  cat /etc/hosts
+   31  ping control
+   32  ping google.com
+   33  ping 192.168.54.2
+   34  ping 192.168.54.3
+   35  ping control.example.com
+   36  systemctl restart networking
+   37  systemctl restart network
+   38  ip a s
+   39  ping control
+   40  ping control.example.com
+   41  hostname
+   42  cat /etc/fstab
+   43  reboot
+   44  ip a s
+   45  ping control
+   46  vi /etc/hosts
+   47  ping control
+   48  yum install yum-utils device-mapper-persistent-data lvm2
+   49  yum-config-manager --add-repo   https://download.docker.com/linux/centos/docker-ce.repo
+   50  yum update && yum install   containerd.io-1.2.10   docker-ce-19.03.4   docker-ce-cli-19.03.4 -y
+   51  mkdir /etc/docker
+   52  cat > /etc/docker/daemon.json <<EOF
+   53  {
+   54    "exec-opts": ["native.cgroupdriver=systemd"],
+   55    "log-driver": "json-file",
+   56    "log-opts": {
+   57      "max-size": "100m"
+   58    },
+   59    "storage-driver": "overlay2",
+   60    "storage-opts": [
+   61      "overlay2.override_kernel_check=true"
+   62    ]
+   63  }
+   64  EOF
+   65  mkdir -p /etc/systemd/system/docker.service.d
+   66  systemctl daemon-reload
+   67  systemctl restart docker
+   68  systemctl enable docker
+   69  ping control.example.com
+   70  ping control -c3
+   71  systemctl status firewalld
+   72  firewall-cmd --add-port 6443/tcp --permanent
+   73  firewall-cmd --add-port 2379-2380/tcp --permanent
+   74  firewall-cmd --add-port 10250/tcp --permanent
+   75  firewall-cmd --add-port 10251/tcp --permanent
+   76  firewall-cmd --add-port 10252/tcp --permanent
+   77  firewall-cmd --reload
+   78  systemctl status firewalld
+   79  systemctl restart firewalld
+   80  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+   81  [kubernetes]
+   82  name=Kubernetes
+   83  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+   84  enabled=1
+   85  gpgcheck=1
+   86  repo_gpgcheck=1
+   87  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+   88  EOF
+   89  setenforce 0
+   90  sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   91  yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   92  systemctl enable --now kubelet
+   93  sed -i 's/^\/dev\/mapper\/centos-swap/#\/dev\/mapper\/centos-swap/' /etc/fstab
+   94  swapoff /dev/mapper/centos-swap
+   95  cat <<EOF > /etc/sysctl.d/k8s.conf
+   96  net.bridge.bridge-nf-call-ip6tables = 1
+   97  net.bridge.bridge-nf-call-iptables = 1
+   98  EOF
+   99  sysctl --system
+  100  systemctl status kubelet
+  101  kubeadm init
+  102  su - devuser
+  103  history
+[root@control ~]#
+
+
+===========================
+
+
+
+[devuser@control ~]$ history
+    1  su -
+    2  mkdir -p $HOME/.kube
+    3  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    4  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    5  kubectl get nodes
+    6  kubectl get pods --all-namespaces
+    7  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    8  kubectl get pods --all-namespaces
+    9  kubectl get nodes
+   10  kubectl get pods --all-namespaces
+   11  kubectl run web-app-pod --image=nginx --restart=Never
+   12  kubectl get pods
+   13  kubectl get pods -o wide
+   14  docker ps
+   15  sudo docker ps
+   16  sudo docker images
+   17  kubectl get pods -o wide
+   18  kubectl get pods -o wide
+   19  kubectl get images
+   20  sudo docker images
+   21  sudo docker ps
+   22  kubectl get pods
+   23  kubectl describe pod web-app-pod
+   24  kubectl get pods
+   25  kubectl get images
+   26  kubectl get nodes
+   27  poweroff
+   28  kubectl get nodes
+   29  kubectl get pods --all-namespaces
+   30  kubectl get pods
+   31  kubectl delete pod web-app-pod
+   32  kubectl run nginx --image=nginx --restart=Never
+   33  kubectl delete pod web-app-pod
+   34  kubectl get pods
+   35  kubectl get pods --all-namespaces
+   36  kubectl describe pod nginx
+   37  kubectl get pods --all-namespaces
+   38  kubectl describe pod nginx
+   39  kubectl get pods --all-namespaces -o wide
+   40  ping worker2
+   41  docker ps
+   42  sudo docker ps
+   43  sudo docker images
+   44  sudo systemctl status kubelet
+   45  kubectl get pods --all-namespaces -o wide
+   46  sudo systemctl stop firewalld
+   47  kubectl get pods --all-namespaces -o wide
+   48  kubectl delete pod nginx
+   49  kubectl run nginx-test --image=nginx --restart=Never
+   50  kubectl get pods
+   51  kubectl get pods --all-namespaces
+   52  ping google.com
+   53  kubectl get pods --all-namespaces -o wide
+   54  sudo systemctl disable --now firewalld
+   55  poweroff
+   56  su -
+
+
+
+=============================
+
+
+
+
+27    "log-opts": {
+   28      "max-size": "100m"
+   29    },
+   30    "storage-driver": "overlay2"
+   31  }
+   32  EOF
+   33  mkdir -p /etc/systemd/system/docker.service.d
+   34  systemctl daemon-reload
+   35  systemctl restart docker
+   36  systemctl enable docker.service
+   37  cat /etc/hostname
+   38  cat /etc/host
+   39  cat /etc/hosts
+   40  hostname
+   41  nano /etc/hosts
+   42  poweroff
+   43  ifconfig enp0s8 192.168.56.3
+   44  ifconfig
+   45  cat /etc/network/interfaces
+   46  nano /etc/network/interfaces
+   47  cat /etc/network/interfaces
+   48  reboot
+   49  ip a s
+   50  cat /etc/network/interfaces
+   51  swapoff -a
+   52  poweroff
+   53  cat /etc/network/interfaces
+   54  ip a s
+   55  ifconfig
+   56  nano /etc/network/interfaces
+   57  systemctl status networking
+   58  apt-get update
+   59  apt-get install ifupdown
+   60  systemctl status networking
+   61  systemctl unmask networking
+   62  systemctl enable networking
+   63  systemctl restart networking
+   64  ip a s
+   65  ping google.com
+   66  vi /etc/network/interfaces
+   67  ip a flush enp0s8
+   68  systemctl restart networking
+   69  ip a s
+   70  ping google.com
+   71  poweroff
+   72  ip a s
+   73  ifconfig
+   74  ping google.com
+   75  cat /etc/hostname
+   76  hostnamectl set-hostname worker1
+   77  reboot
+   78  vi /etc/hosts
+   79  ping google.com
+   80  ping 192.168.56.2
+   81  ping 192.168.56.1
+   82  ping 192.168.56.4
+   83  ping 192.168.56.1
+   84  ping 192.168.0.106
+   85  swapoff -a
+   86  free -h
+   87  cat /etc/fstab
+   88  systemctl status docker
+   89  docker version
+   90  history
+root@worker1:/home/devuser# cat /etc/network/interfaces
+# ifupdown has been replaced by netplan(5) on this system.  See
+# /etc/netplan for current configuration.
+# To re-enable ifupdown on this system, you can run:
+#    sudo apt install ifupdown
+auto lo
+iface lo inet loopback
+
+# interface enp0s8 configuration
+auto enp0s8
+iface enp0s8 inet static
+      address 192.168.56.3
+      netmask 255.255.255.0
+root@worker1:/home/devuser#
+
+
+
+
+==================================
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+W0117 12:42:51.739610   19025 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+W0117 12:42:51.740996   19025 manifests.go:214] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 38.504486 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.17" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node controller as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node controller as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: t9g9pa.kyxo8244ofid02nw
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[kubelet-check] Initial timeout of 40s passed.
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.56.2:6443 --token t9g9pa.kyxo8244ofid02nw \
+    --discovery-token-ca-cert-hash sha256:7fff91dcaef80f1c75d45b86ed5476d643ac1c361169716caa73b13f077f06cb
+
+
+=======================
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
+
+
+
+
+==========================
+
+
+
+
+
+[devuser@control ~]$ history
+    1  sudo su -
+    2  exit
+    3  su -
+    4  exit
+    5  su -
+    6  mkdir -p $HOME/.kube
+    7  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    8  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    9  kubectl get nodes
+   10  kubectl get pods --all-namespaces
+   11  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+   12  kubectl get pods --all-namespaces
+   13  kubectl get nodes
+   14  kubectl get pods --all-namespaces
+   15  kubectl get nodes
+   16  kubectl get pods --all-namespaces
+   17  kubectl get nodes
+   18  kubectl get pods --all-namespaces
+   19  kubectl get nodes
+   20  kubectl run busybox --image=busybox --restart=Never
+   21  kubectl get pods -o wide
+   22  kubectl describe pods
+   23  kubectl describe pods | grep State
+   24  sudo docker images
+   25  su - root
+   26  kubectl describe pods | grep State
+   27  kubectl get pods -o wide
+   28  su -
+   29  kubectl get pods
+   30  sudo systemctl disable -now firewalld
+   31  sudo systemctl disable --now firewalld
+   32  sudo systemctl stop --now firewalld
+   33  kubectl get pods
+   34  watch kubectl get pods
+   35  kubectl get pods
+   36  kubectl get nodes
+   37  touch busybox.yaml
+   38  vi busybox.yaml
+   39  kubectl apply -f busybox.yaml
+   40  kubectl get pods
+   41  history
+[devuser@control ~]$
+
+
+
+===========================
+
+
+[root@control ~]# history
+    1  exit
+    2  ip a s
+    3  ping google.com
+    4  visudo
+    5  usermod -aG wheel devuser
+    6  visudo
+    7  su - devuser
+    8  poweroff
+    9  systemctl status firewalld
+   10  ip a s
+   11  yum install -y net-tools
+   12  vi /etc/sysconfig/network-scripts/ifcfg-enp0s8
+   13  ifdown enp0s8
+   14  ifup enp0s8
+   15  ping 192.168.54.2
+   16  ping -c3 192.168.54.3
+   17  ping -c3 192.168.54.4
+   18  ip a s
+   19  yum install yum-utils device-mapper-persistent-data lvm2 -y
+   20  yum-config-manager --add-repo   https://download.docker.com/linux/centos/docker-ce.repo
+   21  yum update && yum install -y containerd.io-1.2.10 docker-ce-19.03.4 docker-ce-cli-19.03.4
+   22  hostnamectl set-hostname control.example.com
+   23  cat >> /etc/hosts << EOF
+   24  {
+   25    192.168.56.2 control.example.com control
+   26    192.168.56.3 worker1.example.com worker1
+   27    192.168.56.4 worker2.example.com worker2
+   28  }
+   29  EOF
+   30  cat /etc/sysconfig/network
+   31  cat /etc/sysconfig/networks
+   32  cat /etc/sysconfig/network
+   33  ls /etc
+   34  ls /etc/sysconfig
+   35  ls /etc/sysconfig/network
+   36  ls /etc/sysconfig/network-scripts/
+   37  cat /etc/sysconfig/network-scripts/ifcfg-enp0s3
+   38  systemctl status systemd-hostnamed
+   39  systemctl restart systemd-hostnamed
+   40  systemctl status systemd-hostnamed
+   41  hostname
+   42  systemctl stop systemd-hostnamed
+   43  history
+   44  exit
+   45  ip a s
+   46  hostname
+   47  ping control
+   48  systemctl restart networking
+   49  systemctl restart network
+   50  ping control
+   51  poweroff
+   52  ping control
+   53  ping control.exmple.com
+   54  cat /etc/hosts
+   55  ip a s
+   56  ping 192.168.54.2
+   57  ping worker1
+   58  vi /etc/hosts
+   59  ping worker1
+   60  history
+   61  mkdir /etc/docker
+   62  cat > /etc/docker/daemon.json <<EOF
+   63  {
+   64    "exec-opts": ["native.cgroupdriver=systemd"],
+   65    "log-driver": "json-file",
+   66    "log-opts": {
+   67      "max-size": "100m"
+   68    },
+   69    "storage-driver": "overlay2",
+   70    "storage-opts": [
+   71      "overlay2.override_kernel_check=true"
+   72    ]
+   73  }
+   74  EOF
+   75  mkdir -p /etc/systemd/system/docker.service.d
+   76  systemctl daemon-reload
+   77  systemctl restart docker
+   78  systemctl enable docker
+   79  firewall-cmd --add-port 6443/tcp --permanent
+   80  firewall-cmd --add-port 2379-2380/tcp --permanent
+   81  firewall-cmd --add-port 10250/tcp --permanent
+   82  firewall-cmd --add-port 10251/tcp --permanent
+   83  firewall-cmd --add-port 10252/tcp --permanent
+   84  systemctl restart firewalld
+   85  cat /etc/fstab
+   86  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+   87  [kubernetes]
+   88  name=Kubernetes
+   89  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+   90  enabled=1
+   91  gpgcheck=1
+   92  repo_gpgcheck=1
+   93  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+   94  EOF
+   95  setenforce 0
+   96  sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   97  yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   98  systemctl enable --now kubelet
+   99  swapoff /dev/mapper/centos-swap
+  100  systemctl status kubelet
+  101  cat <<EOF > /etc/sysctl.d/k8s.conf
+  102  net.bridge.bridge-nf-call-ip6tables = 1
+  103  net.bridge.bridge-nf-call-iptables = 1
+  104  EOF
+  105  sysctl --system
+  106  kubeadm init
+  107  systemctl reload firewalld
+  108  systemctl restart firewalld
+  109  exit
+  110  firewall-cmd --add-port 80/tcp --permanent
+  111  firewall-cmd --add-port 8080/tcp --permanent
+  112  systemctl reload firewalld
+  113  systemctl restart firewalld
+  114  exit
+  115  history
+[root@control ~]#
+
+
+

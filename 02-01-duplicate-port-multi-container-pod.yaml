@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: duplicate-port-example-multi-pod
+  namespace: facebook
+  labels:
+    app: httpd
+    tier: frontend-backend
+    version: v1.4
+    env: production
+spec:
+  containers:
+  - name: httpd1
+    image: httpd
+    ports:
+    - containerPort: 80
+  - name: httpd2
+    image: httpd
+    ports:
+    - containerPort: 80
+    
